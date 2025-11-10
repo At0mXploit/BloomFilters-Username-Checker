@@ -63,4 +63,25 @@ Also Check "Charlie":
 - `hash2("Charlie") = 7 → bit=0`
 - Any bit 0 → definitely does not exist
 
+In our code:
+
+```js
+const existingUsers = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "At0m", "Atom", "Rijan"];
+```
+
+We have:
+
+- Bit array size m = 20 bits
+- Number of hash functions k = 2
+- Number of elements added n = 9 (Alice, Bob, Charlie…)
+
+The False positive probability formula is:
+
+$$
+P(\text{false positive}) \approx (1 - e^{-kn/m})^k
+$$
+
+Put values and we get `35%` which means with only 20 bits and 2 hashes, after adding 9 usernames, any new username has ~35% chance of reporting “might exist” even if it wasn’t added.
+
 ---
+
