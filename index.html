@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Username Checker</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 350px;
+    }
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    input {
+      padding: 12px 15px;
+      font-size: 16px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Username Availability Checker</h1>
+    <p style="margin-top: 1px; font-size:14px; color:#666;">Using BloomFilters</p>   
+    <input type="text" id="username" placeholder="Enter username">
+    <div id="result"></div>
+  </div>
+
+  <script src="js/bloomfilter.js"></script>
+  <script>
+    const input = document.getElementById('username');
+    const result = document.getElementById('result');
+
+    input.addEventListener('input', () => {
+      const username = input.value.trim();
+      if (!username) {
+        result.textContent = "";
+        return;
+      }
+
+      if (bf.check(username)) {
+        result.textContent = `"${username}" might already exist!`;
+        result.style.color = "red";
+      } else {
+        result.textContent = `"${username}" is available!`;
+        result.style.color = "green";
+      }
+    });
+  </script>
+</body>
+</html>
